@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 
 class BaseModel(models.Model):
@@ -10,7 +11,7 @@ class BaseModel(models.Model):
 
 class Category(BaseModel):
     name = models.CharField(max_length=100)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
 
     @property
     def get_absolute_url(self):
@@ -20,21 +21,20 @@ class Category(BaseModel):
         return self.name
 
 class Product(BaseModel):
-    class RatingChoices(models.IntegerChoices):
-        ONE = 1
-        TWO = 2
-        THREE = 3
-        FOUR = 4
-        FIVE = 5
-
     name = models.CharField(max_length=250)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.PositiveIntegerField(default=0)
     quantity = models.PositiveIntegerField(default=0)
     description = models.TextField()
-    image = models.ImageField(upload_to='images/')
-    rating = models.PositiveIntegerField(choices=RatingChoices.choices, default=RatingChoices.ONE.value)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+
+    @property
+    def discounted_price(self):
+        if self.discount > 0:
+            discount_amount = (self.price * Decimal(self.discount)) / Decimal(100)
+            return self.price - discount_amount
+        return self.price
 
     @property
     def get_absolute_url(self):
