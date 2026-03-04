@@ -1,4 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
+from OnlineShop.forms import CommentForm
 from OnlineShop.models import Product
 
 
@@ -13,8 +15,22 @@ def homepage(request):
 
 def product_details(request, pk):
     product = Product.objects.get(pk=pk)
+    comments = product.comments.order_by('-id')
+
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.product = product
+            comment.save()
+            return redirect('product_details', pk=pk)
+    else:
+        form = CommentForm()
+
     context = {
-        'product': product
+        'product': product,
+        'comments': comments,
+        'form': form
     }
     return render (request, 'OnlineShop/product_details.html', context)
 
@@ -29,3 +45,4 @@ def login(request):
 
 def register(request):
     return render(request, 'OnlineShop/register.html')
+

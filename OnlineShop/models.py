@@ -27,7 +27,7 @@ class Product(BaseModel):
     quantity = models.PositiveIntegerField(default=0)
     description = models.TextField()
     image = models.ImageField(upload_to='images/', null=True, blank=True)
-    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, blank=True, related_name='products')
 
     @property
     def discounted_price(self):
@@ -47,6 +47,7 @@ class Comment(BaseModel):
     name = models.CharField(max_length=250)
     email = models.EmailField()
     comment = models.TextField()
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, related_name='comments')
 
     def __str__(self):
         return self.email

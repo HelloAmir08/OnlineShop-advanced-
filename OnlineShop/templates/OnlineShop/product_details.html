@@ -4,7 +4,7 @@
 {% block hero %}
 <header class="hero hero-sm">
   <div class="container text-center">
-    <h1 class="hero-title hero-title-sm">{{ product.name }}</h1>
+    <h1 class="hero-title hero-title-sm">{{ product.category }}</h1>
     <p class="hero-subtitle">Product details & quick order</p>
   </div>
 </header>
@@ -31,9 +31,6 @@
     <div class="card soft-card">
       <div class="card-body p-4">
         <div class="d-flex align-items-center justify-content-between gap-2 flex-wrap">
-          <div class="text-muted small">
-            <i class="bi bi-star-fill text-warning"></i> Rating: 124
-          </div>
           {% if product.discount > 0 %}
             <span class="badge bg-dark">Sale -{{ product.discount }}%</span>
           {% endif %}
@@ -64,7 +61,7 @@
             </div>
             <div class="col-12">
               <label class="form-label">Your phone</label>
-              <input type="text" class="form-control" placeholder="+7 (___) ___-__-__" name="phone">
+              <input type="text" class="form-control" placeholder="+998 (__) ___-__-__" name="phone">
             </div>
             <div class="col-12 d-grid">
               <button type="submit" class="btn btn-dark">
@@ -84,66 +81,55 @@
   </div>
 </div>
 
-<div class="row g-4 mt-4">
+<div class="row g-4 mt-4 align-items-stretch">
   <div class="col-12 col-lg-7">
-    <div class="card soft-card">
-      <div class="card-body p-4">
+    <div class="card soft-card h-100">
+  <div class="card-body p-4 d-flex flex-column">
         <div class="d-flex align-items-center justify-content-between flex-wrap gap-2 mb-3">
           <h4 class="fw-bold mb-0">Latest comments</h4>
-          <span class="text-muted small">Demo block (можно подключить модель Comments)</span>
         </div>
 
         <!-- Demo comments -->
+      {% for comment in comments %}
         <div class="comment">
           <div class="comment-head">
-            <div class="avatar">JD</div>
+            <div class="avatar">
+    <img src="/media/images/default-avatar-icon-of-social-media-user-vector.jpg" alt="avatar">
+</div>
             <div>
-              <div class="fw-bold">John Doe</div>
-              <div class="text-muted small">2 hours ago</div>
+              <div class="fw-bold">{{ comment.name }}</div>
+              <div class="text-muted small">{{ comment.created_at }}</div>
             </div>
           </div>
           <div class="text-muted mt-2">
-            Nice product, delivery was fast. Would buy again.
+            {{ comment.comment }}
           </div>
         </div>
-
-        <div class="comment">
-          <div class="comment-head">
-            <div class="avatar">AM</div>
-            <div>
-              <div class="fw-bold">Alice Moon</div>
-              <div class="text-muted small">1 day ago</div>
-            </div>
-          </div>
-          <div class="text-muted mt-2">
-            Good quality for this price, especially with discount.
-          </div>
-        </div>
-
+      {% endfor %}
       </div>
     </div>
   </div>
 
   <div class="col-12 col-lg-5">
-    <div class="card soft-card">
-      <div class="card-body p-4">
+   <div class="card soft-card h-100">
+  <div class="card-body p-4 d-flex flex-column">
         <h4 class="fw-bold mb-3">Add comment</h4>
-        <form method="post" action="">
+        <form method="post" action="{% url 'product_details' product.pk %}" class="d-flex flex-column flex-grow-1">
           {% csrf_token %}
           <div class="mb-3">
             <label class="form-label">Your name</label>
-            <input type="text" class="form-control" placeholder="Your name" name="comment_name">
+            <input type="text" class="form-control" placeholder="Your name" name="name">
           </div>
           <div class="mb-3">
             <label class="form-label">Your email</label>
-            <input type="email" class="form-control" placeholder="name@example.com" name="comment_email">
+            <input type="email" class="form-control" placeholder="name@example.com" name="email">
           </div>
           <div class="mb-3">
             <label class="form-label">Your comment</label>
-            <textarea class="form-control" rows="5" placeholder="Write here..." name="comment_text"></textarea>
+            <textarea class="form-control" rows="5" placeholder="Write here..." name="comment"></textarea>
           </div>
-          <div class="d-grid">
-            <button class="btn btn-outline-dark" type="submit">
+          <div class="d-grid mt-auto">
+  <button class="btn btn-outline-dark" type="submit">
               <i class="bi bi-chat-dots"></i> Send comment
             </button>
           </div>

@@ -1,4 +1,4 @@
-{% load static %}
+ {% load static %}
 <!doctype html>
 <html lang="en">
 <head>
@@ -59,9 +59,9 @@
             Categories
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Shoes</a></li>
-            <li><a class="dropdown-item" href="#">Clothes</a></li>
-            <li><a class="dropdown-item" href="#">Accessories</a></li>
+              {% for category in categories %}
+            <li><a class="dropdown-item" href="#">{{ category.name }}</a></li>
+              {% endfor %}
           </ul>
         </li>
       </ul>
