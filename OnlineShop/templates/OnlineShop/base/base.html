@@ -70,15 +70,23 @@
       <div class="d-flex align-items-center gap-3">
 
         <!-- Search -->
-        <form class="d-flex gap-2" role="search" method="get">
-          <div class="input-group input-group-sm">
-            <span class="input-group-text bg-white">
-              <i class="bi bi-search"></i>
-            </span>
-            <input class="form-control" type="search" name="q" placeholder="Search products...">
-          </div>
-          <button class="btn btn-dark btn-sm" type="submit">Search</button>
-        </form>
+        <form class="d-flex gap-2" role="search" method="get" action="{% url 'index' %}">
+  <div class="input-group input-group-sm">
+    <span class="input-group-text bg-white">
+      <i class="bi bi-search"></i>
+    </span>
+
+    <input class="form-control"
+           type="search"
+           name="q"
+           placeholder="Search products..."
+           value="{{ request.GET.q|default:'' }}">
+  </div>
+
+  <button class="btn btn-dark btn-sm" type="submit">
+    Search
+  </button>
+</form>
 
         <!-- Auth buttons -->
         <div class="d-flex gap-2">

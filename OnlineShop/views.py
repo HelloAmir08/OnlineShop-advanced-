@@ -1,14 +1,33 @@
 from django.shortcuts import render, redirect
 from OnlineShop.forms import CommentForm, OrderForm
 from OnlineShop.models import Product
+from django.db.models import Q
 
 
 # Create your views here.
 
 def homepage(request):
     products = Product.objects.all()
+
+    # SEARCH
+    q = request.GET.get("q", "").strip()
+    if q:
+        products = products.filter(
+            Q(name__icontains=q)
+        )
+
+    sort = request.GET.get('sort')
+    if sort == 'expensive':
+        products = products.order_by('-price')
+    elif sort == 'cheap':
+        products = products.order_by('price')
+    elif sort == 'new':
+        products = products.order_by('-created_at')
+
     context = {
-        'products': products
+        'products': products,
+        'sort': sort,
+        'q': q,
     }
     return render(request, 'OnlineShop/index.html', context)
 
