@@ -52,7 +52,7 @@
         <div class="divider my-4"></div>
 
         <h5 class="fw-bold mb-3">Place an order</h5>
-        <form method="post" action="">
+        <form method="post" action="{% url 'product_details' product.pk %}">
           {% csrf_token %}
           <div class="row g-3">
             <div class="col-12">
@@ -61,11 +61,11 @@
             </div>
             <div class="col-12">
               <label class="form-label">Your phone</label>
-              <input type="text" class="form-control" placeholder="+998 (__) ___-__-__" name="phone">
+              <input type="text" class="form-control" placeholder="+998 (__) ___-__-__" name="phone_number">
             </div>
             <div class="col-12 d-grid">
-              <button type="submit" class="btn btn-dark">
-                <i class="bi bi-send"></i> Send
+              <button type="submit" name="order_submit" class="btn btn-dark">
+                <i class="bi bi-send"></i> Send order
               </button>
             </div>
             <div class="col-12">
@@ -129,7 +129,7 @@
             <textarea class="form-control" rows="5" placeholder="Write here..." name="comment"></textarea>
           </div>
           <div class="d-grid mt-auto">
-  <button class="btn btn-outline-dark" type="submit">
+  <button class="btn btn-outline-dark" type="submit" name="comment_submit">
               <i class="bi bi-chat-dots"></i> Send comment
             </button>
           </div>

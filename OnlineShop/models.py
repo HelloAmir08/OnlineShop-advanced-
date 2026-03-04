@@ -1,5 +1,7 @@
 from django.db import models
 from decimal import Decimal
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 
 class BaseModel(models.Model):
@@ -51,5 +53,15 @@ class Comment(BaseModel):
 
     def __str__(self):
         return self.email
+
+class Order(BaseModel):
+    name = models.CharField(max_length=250)
+    phone_number = PhoneNumberField(region='UZ')
+    product = models.ForeignKey(Product, on_delete=models.CASCADE, null=True, blank=True, related_name='orders')
+
+    def __str__(self):
+        return self.name
+    
+
 
 
