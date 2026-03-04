@@ -9,6 +9,10 @@ from django.db.models import Q
 def homepage(request):
     products = Product.objects.all()
 
+    category_id = request.GET.get("category")
+    if category_id:
+        products = products.filter(category_id=category_id)
+
     # SEARCH
     q = request.GET.get("q", "").strip()
     if q:
