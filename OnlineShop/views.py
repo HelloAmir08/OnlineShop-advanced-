@@ -105,9 +105,5 @@ def about(request):
 def contact(request):
     return render(request, 'OnlineShop/contact.html')
 
-def login(request):
-    return render(request, 'OnlineShop/login.html')
 
-def register(request):
-    return render(request, 'OnlineShop/register.html')
 

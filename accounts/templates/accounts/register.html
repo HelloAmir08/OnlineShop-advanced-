@@ -18,8 +18,14 @@
       <h3 class="auth-title">Sign up</h3>
       <div class="auth-subtitle">Fill the fields below</div>
 
-      <form method="post" action="">
+      <form method="post" action="{% url 'register' %}">
         {% csrf_token %}
+
+          {% if form.errors %}
+  <div class="alert alert-danger">
+    {{ form.errors }}
+  </div>
+{% endif %}
 
         <div class="mt-3">
           <label class="form-label">Username</label>

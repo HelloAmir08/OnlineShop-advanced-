@@ -1,0 +1,20 @@
+{% extends "OnlineShop/base/base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<div class="card p-4 text-center">
+
+<div class="profile-avatar mb-3">
+<img src="{{ user.avatar.url }}" alt="">
+</div>
+
+<h3>{{ user.username }}</h3>
+<p class="text-muted">{{ user.email }}</p>
+
+</div>
+
+</div>
+
+{% endblock %}

@@ -17,5 +17,12 @@
       <jdbc-url>jdbc:postgresql://127.0.0.1:5432/onlineshopbase</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="onlineshopbase@localhost [2]" uuid="5591e2e1-3c7d-4641-97ac-88d3f02eda39">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/onlineshopbase</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
