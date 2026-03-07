@@ -1,0 +1,77 @@
+{% extends "OnlineShop/base/base.html" %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4 fw-bold">Your Cart</h2>
+
+  {% if items %}
+  <div class="row g-4">
+
+    <div class="col-lg-8">
+      {% for item in items %}
+      <div class="card soft-card cart-item-card mb-3">
+        <div class="card-body">
+          <div class="row align-items-center">
+
+            <div class="col-md-2 col-4">
+              <div class="cart-product-image">
+                <img src="{{ item.product.image.url }}" alt="{{ item.product.name }}">
+              </div>
+            </div>
+
+            <div class="col-md-5 col-8">
+              <h5 class="mb-1">{{ item.product.name }}</h5>
+              <div class="text-muted small">Price: ${{ item.product.price }}</div>
+            </div>
+
+            <div class="col-md-2 col-4 mt-3 mt-md-0">
+              <div class="text-muted small">Qty</div>
+              <div class="fw-semibold">{{ item.quantity }}</div>
+            </div>
+
+            <div class="col-md-3 col-8 mt-3 mt-md-0 text-md-end">
+              <div class="text-muted small">Subtotal</div>
+              <div class="fw-bold">${{ item.total_price }}</div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <div class="col-lg-4">
+      <div class="card soft-card cart-summary-card">
+        <div class="card-body p-4">
+          <h5 class="fw-bold mb-3">Order Summary</h5>
+
+          <div class="d-flex justify-content-between mb-2">
+            <span class="text-muted">Items</span>
+            <span>{{ items|length }}</span>
+          </div>
+
+          <div class="d-flex justify-content-between mb-3">
+            <span class="text-muted">Total</span>
+            <span class="fw-bold">${{ total }}</span>
+          </div>
+
+          <form method="post" action="">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-dark w-100 btn-pill">
+              Order now
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  {% else %}
+  <div class="card soft-card p-4 text-center">
+    <p class="text-muted mb-0">Your cart is empty</p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}
