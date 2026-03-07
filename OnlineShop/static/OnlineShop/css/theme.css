@@ -272,6 +272,14 @@
   background: #f6f7f9;
 }
 
+.dropdown-item button{
+  background:none;
+  border:none;
+  width:100%;
+  text-align:left;
+  padding:0;
+}
+
 .profile-avatar{
   width: 120px;
   height: 120px;
